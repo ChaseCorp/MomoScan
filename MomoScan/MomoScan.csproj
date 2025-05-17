@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net9.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UseWPF>true</UseWPF>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Extended.Wpf.Toolkit" Version="4.7.25104.5739" />
+      <PackageReference Include="MaterialDesignColors" Version="5.2.2-ci991" />
+      <PackageReference Include="MaterialDesignThemes" Version="5.2.2-ci991" />
+      <PackageReference Include="ModernWpfUI" Version="0.9.6" />
+      <PackageReference Include="WPF-UI" Version="4.0.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Page Update="Views\MainWindow.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Assets\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Assets\NFC.png" />
+      <Resource Include="Assets\NFC.png" />
+      <None Remove="Assets\NFC.svg" />
+      <Resource Include="Assets\NFC.svg" />
+    </ItemGroup>
+
+</Project>
