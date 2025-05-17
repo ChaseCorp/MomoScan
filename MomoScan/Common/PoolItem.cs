@@ -42,4 +42,9 @@ public class PoolItem
         Name = name;
         TagNumber = tagNumber;
     }
+
+    public PoolItem()
+    {
+        
+    }
 }

@@ -33,6 +33,8 @@
       <Resource Include="Assets\NFC.png" />
       <None Remove="Assets\NFC.svg" />
       <Resource Include="Assets\NFC.svg" />
+      <None Remove="Assets\momo_monster_nb.png" />
+      <Resource Include="Assets\momo_monster_nb.png" />
     </ItemGroup>
 
 </Project>

@@ -41,13 +41,15 @@
                 <TextBlock 
                     FontFamily="Segoe MDL2 Assets" 
                     Text="&#xE898;" 
+                    Foreground="OrangeRed"
                     FontSize="20" 
                     HorizontalAlignment="Center" 
-                    VerticalAlignment="Center"/>
+                    VerticalAlignment="Center"
+                    ToolTip="Upload Volunteer List"/>
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border CornerRadius="12"
-                                Background="Chartreuse">
+                                Background="Aquamarine">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
@@ -57,13 +59,15 @@
                 <TextBlock 
                     FontFamily="Segoe MDL2 Assets" 
                     Text="&#xE74E;" 
+                    Foreground="OrangeRed"
                     FontSize="20" 
                     HorizontalAlignment="Center" 
-                    VerticalAlignment="Center"/>
+                    VerticalAlignment="Center"
+                    ToolTip="Save as xml"/>
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border CornerRadius="12"
-                                Background="Chartreuse">
+                                Background="Aquamarine">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
@@ -73,7 +77,7 @@
         <StackPanel Grid.Column="1" Grid.Row="0" Margin="0,0,0,10">
         <TabControl Height="Auto" Margin="5,0,5,5">
         <TabItem Header="Dispatch" Margin="4" Background="LightSkyBlue" >
-            <Border BorderBrush="White" BorderThickness="4">
+            <Border CornerRadius="12" BorderBrush="White" BorderThickness="4">
             <Grid Margin="10, 10, 10, 10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="200"/>
@@ -127,7 +131,7 @@
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Center"
                 Margin="0,10,0,0"/>
-            <Border BorderBrush="White" BorderThickness="4" Margin="5">
+            <Border CornerRadius="12" BorderBrush="White" BorderThickness="4" Margin="5">
                 <StackPanel>
                 <TextBlock Text="Name" Foreground="White" Margin="10"/>
                 <TextBox 
@@ -151,7 +155,7 @@
             </Border>
         </StackPanel>
         <StackPanel Grid.Column="2" Grid.RowSpan="2">
-            <Border BorderBrush="White" BorderThickness="4" Margin="5">
+            <Border CornerRadius="12" BorderBrush="White" BorderThickness="4" Margin="5">
                 <StackPanel>
                 <TextBlock 
                     Text="Dispatch Pool" 
@@ -160,29 +164,41 @@
                     HorizontalAlignment="Center" 
                     VerticalAlignment="Center"
                     Margin="0,10,0,0"/>
-                <DataGrid 
-                    AutoGenerateColumns="False" 
-                    HeadersVisibility="Column" 
-                    Width="365"
-                    Height="600"
-                    Background="Beige"
-                    Foreground="Black"
-                    GridLinesVisibility="Vertical"
-                    ScrollViewer.VerticalScrollBarVisibility="Auto"
-                    VerticalAlignment="Stretch"
-                    ItemsSource="{Binding Model.DispatchePool}"
-                    Margin="10">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="133" />
-                        <DataGridTextColumn Header="Location" Binding="{Binding Location}" Width="133" />
-                        <DataGridTextColumn Header="Time Back" Binding="{Binding ReturnTime}" Width="*" />
-                    </DataGrid.Columns>
-                </DataGrid>
+                <Border CornerRadius="12" BorderBrush="Transparent" BorderThickness="1">
+                    <DataGrid 
+                        AutoGenerateColumns="False" 
+                        HeadersVisibility="Column" 
+                        Width="365"
+                        Height="600"
+                        Background="Beige"
+                        Foreground="Black"
+                        GridLinesVisibility="Vertical"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                        VerticalAlignment="Stretch"
+                        ItemsSource="{Binding Model.DispatchPool}"
+                        Margin="10"
+                        >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Name" 
+                                                Binding="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}" 
+                                                IsReadOnly="True"
+                                                Width="100" />
+                            <DataGridTextColumn Header="Location" 
+                                                Binding="{Binding Location, UpdateSourceTrigger=PropertyChanged}"
+                                                IsReadOnly="True"
+                                                Width="100" />
+                            <DataGridTextColumn Header="Time Back" 
+                                                Binding="{Binding ReturnTime, UpdateSourceTrigger=PropertyChanged}" 
+                                                IsReadOnly="True"
+                                                Width="*" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Border>
                 </StackPanel>
             </Border>
         </StackPanel>
         <StackPanel Grid.Column="3" Grid.RowSpan="2">
-            <Border BorderBrush="White" BorderThickness="4" Margin="5">
+            <Border CornerRadius="12" BorderBrush="White" BorderThickness="4" Margin="5">
                 <StackPanel>
                     <TextBlock 
                         Text="Volunteer Pool" 
@@ -205,11 +221,26 @@
                         ItemsSource="{Binding Model.VolunteerPool}"
                         Margin="10">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="133"/>
-                            <DataGridTextColumn Header="Badge #" Binding="{Binding Path=Name}" Width="100"/>
-                            <DataGridTextColumn Header="Status" Binding="{Binding DisplayStatus}" Width="133"/>
-                            <DataGridTextColumn Header="Total Hours" Binding="{Binding Path=Name}" Width="100"/>
-                            <DataGridTextColumn Header="Last Activity" Binding="{Binding LastActivity}" Width="*" />
+                            <DataGridTextColumn Header="Name" 
+                                                Binding="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}" 
+                                                IsReadOnly="True" 
+                                                Width="100"/>
+                            <DataGridTextColumn Header="Badge #" 
+                                                Binding="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}" 
+                                                IsReadOnly="True" 
+                                                Width="100"/>
+                            <DataGridTextColumn Header="Status" 
+                                                Binding="{Binding DisplayStatus, UpdateSourceTrigger=PropertyChanged}" 
+                                                IsReadOnly="True" 
+                                                Width="100"/>
+                            <DataGridTextColumn Header="Total Hours" 
+                                                Binding="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"
+                                                IsReadOnly="True" 
+                                                Width="100"/>
+                            <DataGridTextColumn Header="Last Activity" 
+                                                Binding="{Binding LastActivity, UpdateSourceTrigger=PropertyChanged}"
+                                                IsReadOnly="True" 
+                                                Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </StackPanel>

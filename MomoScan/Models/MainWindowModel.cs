@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using MomoScan.Common;
+using MomoScan.Utils;
 using Xceed.Wpf.Toolkit;
 using Xceed.Wpf.Toolkit.Core;
 
@@ -15,7 +16,7 @@ public class MainWindowModel
     private string _dispatchLocation = string.Empty;
     private DateTime _dispatchReturnTime;
     private string _checkTag = string.Empty;
-    private ObservableCollection<DispatchItem> _dispatchePool = new ObservableCollection<DispatchItem>();
+    private ObservableCollection<DispatchItem> _dispatchPool = new ObservableCollection<DispatchItem>();
     private string _poolName = string.Empty;
     private string _poolTagNumber = string.Empty;
     private ObservableCollection<PoolItem> _volunteerPool = new ObservableCollection<PoolItem>();
@@ -40,13 +41,19 @@ public class MainWindowModel
         get => _checkTag;
         set => _checkTag = value;
     }
-    public ObservableCollection<DispatchItem> DispatchePool
+    public ObservableCollection<DispatchItem> DispatchPool
     {
-        get => _dispatchePool; set => _dispatchePool = value;
+        get => _dispatchPool;
+        set
+        {
+            _dispatchPool = value;
+            SessionTool.SaveSession(value.ToList(), SessionType.DispatchPool );
+        } 
     }
     public string PoolName
     {
-        get => _poolName; set => _poolName = value;
+        get => _poolName;
+        set => _poolName = value;
     }
     public string PoolTagNumber
     {
@@ -72,7 +79,7 @@ public class MainWindowModel
 
     public MainWindowModel()
     {
-        DispatchePool = new ObservableCollection<DispatchItem>();
+        DispatchPool = new ObservableCollection<DispatchItem>();
         VolunteerPool = new ObservableCollection<PoolItem>();
         
         AddToPoolCommand = new RelayCommand(_ => AddToPool());
@@ -110,6 +117,8 @@ public class MainWindowModel
         PoolTagNumber = string.Empty;
         RaisePropertyChanged(nameof(PoolName));
         RaisePropertyChanged(nameof(PoolTagNumber));
+        
+        SessionTool.SaveSession(VolunteerPool.ToList(), SessionType.VolunteerPool );
     }
 
     public void AddToDispatch()
@@ -124,9 +133,9 @@ public class MainWindowModel
                 .FirstOrDefault();
             
             var dispatchVolunteer = new DispatchItem(matchedEntry.Name, matchedEntry.TagNumber, DispatchLocation, DispatchReturnTime);
-            DispatchePool.Remove(dispatchVolunteer);
-            DispatchePool.Add(dispatchVolunteer);
-            RaisePropertyChanged(nameof(DispatchePool));
+            DispatchPool.Remove(dispatchVolunteer);
+            DispatchPool.Add(dispatchVolunteer);
+            RaisePropertyChanged(nameof(DispatchPool));
         }
         catch
         {
@@ -150,12 +159,12 @@ public class MainWindowModel
             {
                 var matchedDispatch = (
                     from entry 
-                        in DispatchePool
+                        in DispatchPool
                         where entry.TagNumber == tagNumber
                         select entry)
                         .FirstOrDefault();
                 
-                DispatchePool.Remove(matchedDispatch);
+                DispatchPool.Remove(matchedDispatch);
             }
             else
             {
@@ -177,7 +186,7 @@ public class MainWindowModel
 
     private bool CheckIfReturnFromDispatcher(string scannedTag)
     {
-        foreach (var item in DispatchePool)
+        foreach (var item in DispatchPool)
         {
             if (item.TagNumber == scannedTag)
                 return true;
