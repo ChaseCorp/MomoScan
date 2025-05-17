@@ -1,0 +1,85 @@
+## Ignore Visual Studio files
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Ignore build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+*.log
+
+## Ignore Rider project files
+.idea/
+*.sln.iml
+
+## Ignore ASP.NET temporary files
+**/App_Data/Temp/
+**/App_Data/Logs/
+
+## Ignore NuGet packages
+*.nupkg
+*.snupkg
+packages/
+*.nuspec
+project.lock.json
+project.fragment.lock.json
+
+## Ignore Resharper files
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+## Ignore dotCover files
+*.dotCover
+
+## Ignore user-specific files
+*.userprefs
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## Ignore other files
+*.DS_Store
+*.Thumbs.db
+
+## Ignore Publish profiles
+Properties/PublishProfiles/
+
+## Ignore Windows image cache files
+ehthumbs.db
+
+## Ignore Rider workspace-related files
+.idea/
+
+## Ignore JetBrains workspace files
+*.iws
+
+## Ignore Backup & temporary files
+*~
+*.bak
+*.tmp
+*.temp
+
+## Ignore generated files by design tools
+*.designer.cs
+*.g.cs
+*.g.i.cs
+
+## Ignore Entity Framework files
+Migrations/
+
+## Ignore Test results
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+*.testsettings
+*.vsmdi
+
+## Ignore Code coverage results
+*.coverage
+*.coveragexml
