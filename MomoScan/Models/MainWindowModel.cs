@@ -85,6 +85,8 @@ public class MainWindowModel
         AddToPoolCommand = new RelayCommand(_ => AddToPool());
         DispatchVolunteer = new RelayCommand(_ => AddToDispatch());
         NotificationHub.ScanHandler += Scanned;
+        
+        OnLoad();
     }
     
     public void AddToPool()
@@ -140,6 +142,29 @@ public class MainWindowModel
         catch
         {
             MessageBox.Show($"Unknown Tag: {DispatchTagNumber}", "Unknown Tag Scanned");
+        }
+    }
+
+    private void OnLoad()
+    {
+        try
+        {
+            List<PoolItem> sessionPool =
+                Utils.SessionTool.LoadSession(SessionType.VolunteerPool) as List<PoolItem>;
+
+            if (sessionPool != null && sessionPool.Count > 0)
+            {
+                foreach (var volunteer in sessionPool)
+                {
+                    VolunteerPool.Add(volunteer);
+                }
+            }
+                RaisePropertyChanged(nameof(VolunteerPool));
+            
+        }
+        catch
+        {
+            
         }
     }
 

@@ -32,6 +32,21 @@ public static class SessionTool
         } 
     }
 
+    public static object LoadSession(SessionType type)
+    {
+        switch (type)
+        {
+            case SessionType.VolunteerPool:
+                    return LoadVolunteerPool();
+                break;
+            case SessionType.DispatchPool:
+            case SessionType.TagAssociationList:
+            default:
+                return null;
+                break;
+        } 
+    }
+
     private static void SaveVolunteerPool(object data)
     {
         try
@@ -54,6 +69,30 @@ public static class SessionTool
             Console.WriteLine($"Ex caught in SessionTool: {ex.Message}");
 #endif
         }
+    }
+
+    private static List<PoolItem> LoadVolunteerPool()
+    {
+        try
+        {
+            if (File.Exists(_volPoolPath))
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(List<PoolItem>));
+
+                using (FileStream fs = new FileStream(_volPoolPath, FileMode.Open))
+                {
+                    return (List<PoolItem>)serializer.Deserialize(fs);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+#if DEBUG
+            Console.WriteLine($"Ex caught in SessionTool: {ex.Message}");
+#endif
+            return new List<PoolItem>();
+        }
+        return new List<PoolItem>();
     }
 }
 
